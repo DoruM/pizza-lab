@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -19,6 +16,8 @@ import java.util.List;
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "address_key_sequence_generator")
+    @SequenceGenerator(name = "address_key_sequence_generator", sequenceName = "address_sequence", allocationSize = 1)
     private Long id;
 
     @ManyToMany

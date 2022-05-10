@@ -1,5 +1,7 @@
 package pizzalab;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -13,38 +15,41 @@ import pizzalab.domain.Menu;
 import static java.util.Arrays.asList;
 
 @SpringBootApplication
-@EnableConfigurationProperties
-@EntityScan(basePackages = "pizzalab")
-public class Main {
+public class Main  implements CommandLineRunner {
 
-  private static final DeliveryService deliveryService = new DeliveryService();
-  public static final PantryService pantryService = new PantryService();
+    @Autowired
+    private DeliveryService deliveryService;
+    @Autowired
+    public PantryService pantryService;
 
 
-  public static void main(String[] args) {
-    SpringApplication.run(Main.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
 
-    System.out.println("Welcome to Pizza Delivery Service");
+    }
 
-    Customer john = Customer.builder()
-        .name("John")
-        .phone("012345678")
-        .addresses(asList(Address.builder().street("John's street").build()))
-        .build();
-    deliveryService.addCustomer(john);
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("Welcome to Pizza Delivery Service");
 
-    Menu menu = pantryService.listMenu();
+        Customer john = Customer.builder()
+                .name("John")
+                .phone("012345678")
+                .addresses(asList(Address.builder().street("John's street").build()))
+                .build();
+        deliveryService.addCustomer(john);
 
-    System.out.println(menu);
+        Menu menu = pantryService.listMenu();
 
-  }
+        System.out.println(menu);
+    }
 }
 
 @RestController
 class FirstController {
-  @GetMapping("/")
-  public String getSomething() {
-    return "Hello world!";
-  }
+    @GetMapping("/")
+    public String getSomething() {
+        return "Hello world!";
+    }
 }
 

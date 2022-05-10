@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Builder
@@ -19,6 +16,8 @@ import java.util.List;
 public class Customer {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_key_sequence_generator")
+  @SequenceGenerator(name = "customer_key_sequence_generator", sequenceName = "customer_sequence", allocationSize = 1)
   private Long id;
 
   private String name;
@@ -26,7 +25,7 @@ public class Customer {
   private String hashedPassword;
   private String creditCard;
 
-  @ManyToMany
+  @ManyToMany(cascade=CascadeType.ALL)
   private List<Address> addresses;
 
 }
