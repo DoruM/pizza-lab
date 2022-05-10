@@ -1,6 +1,7 @@
 package pizzalab;
 
 import pizzalab.domain.Menu;
+import pizzalab.domain.MenuItem;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -17,7 +18,7 @@ public class PantryService {
         .items(
             repository.getProducts().stream()
                 .filter(p -> p.getQuantity() > 0)
-                .map(p -> Menu.MenuItem.builder()
+                .map(p -> MenuItem.builder()
                     .price(p.getPrice())
                     .description(p.getDescription())
                     .build())

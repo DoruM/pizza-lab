@@ -4,9 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
+@Entity
+@DiscriminatorValue("2")
 public class Soda extends Product {
+  @Id
+  private Long id;
 
   private String name;
 

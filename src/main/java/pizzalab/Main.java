@@ -1,17 +1,20 @@
 package pizzalab;
 
-import static java.util.Arrays.asList;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import pizzalab.domain.Address;
 import pizzalab.domain.Customer;
 import pizzalab.domain.Menu;
 
+import static java.util.Arrays.asList;
+
 @SpringBootApplication
+@EnableConfigurationProperties
+@EntityScan(basePackages = "pizzalab")
 public class Main {
 
   private static final DeliveryService deliveryService = new DeliveryService();

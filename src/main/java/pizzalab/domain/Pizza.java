@@ -4,8 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
 @Getter
 @Setter
+@Entity
+@DiscriminatorValue("1")
 public class Pizza extends Product {
 
   private PizzaType type;
